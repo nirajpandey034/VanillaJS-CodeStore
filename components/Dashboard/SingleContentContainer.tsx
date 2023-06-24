@@ -3,12 +3,12 @@ import Content from "../../interfaces/Content";
 import CircularProgress from "@mui/material/CircularProgress";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Loader from "../shared/loader/Loader";
 import HtmlIcon from "@mui/icons-material/Html";
 import CssIcon from "@mui/icons-material/Css";
 import JavascriptIcon from "@mui/icons-material/Javascript";
+import MultilineSkeleton from "../shared/Skeleton/MultilineSkeleton";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -106,7 +106,7 @@ function SingleContentContainer({
           style={{ overflow: "scroll" }}
         >
           {loading ? (
-            <Loader />
+            <MultilineSkeleton />
           ) : (
             <>
               <TabPanel value={value} index={0}>
