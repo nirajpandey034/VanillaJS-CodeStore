@@ -30,7 +30,9 @@ function TabPanel(props: TabPanelProps) {
     >
       {value === index && (
         <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
+          <pre>
+            <code>{children}</code>
+          </pre>
         </Box>
       )}
     </div>
@@ -99,19 +101,22 @@ function SingleContentContainer({
             />
           </Tabs>
         </Box>
-        <div className="shadow-lg bg-gray-50 rounded-lg min-h-screen">
+        <div
+          className="shadow-lg bg-gray-50 rounded-lg min-h-screen"
+          style={{ overflow: "scroll" }}
+        >
           {loading ? (
             <Loader />
           ) : (
             <>
               <TabPanel value={value} index={0}>
-                <code style={{ fontFamily: "Monaco" }}>{htmlCode}</code>
+                {htmlCode}
               </TabPanel>
               <TabPanel value={value} index={1}>
-                <code style={{ fontFamily: "Monaco" }}>{cssCode}</code>
+                {cssCode}
               </TabPanel>
               <TabPanel value={value} index={2}>
-                <code style={{ fontFamily: "Monaco" }}>{jsCode}</code>
+                {jsCode}
               </TabPanel>
             </>
           )}
