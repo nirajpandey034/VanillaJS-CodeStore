@@ -13,7 +13,7 @@ import Box from "@mui/material/Box";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
+import Select from "@mui/material/Select";
 
 function DashboardContainer({ contentList }: any) {
   const [singleContent, setSingleContent] = useState<Content | undefined>();
@@ -36,6 +36,9 @@ function DashboardContainer({ contentList }: any) {
     setSingleContent(obj);
     setLoading(false);
   };
+  React.useEffect(() => {
+    console.log(contentList);
+  }, [contentList]);
   return (
     <Container maxWidth="xl" sx={{ height: "100vh" }}>
       <Grid
