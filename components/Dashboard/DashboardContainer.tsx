@@ -29,12 +29,12 @@ function DashboardContainer({ contentList }: any) {
       <Grid
         container
         justifyContent="space-between"
-        sx={{ height: "100vh", width: "90%" }}
+        sx={{ height: "100vh", width: "90%", pt: 2 }}
       >
-        <Grid item xs={4}>
+        <Grid item xs={3}>
           <ContentList listData={contentList?.data} getContent={getContent} />
         </Grid>
-        <Grid item xs={7}>
+        <Grid item xs={8}>
           <SingleContentContainer content={singleContent} loading={loading} />
         </Grid>
       </Grid>

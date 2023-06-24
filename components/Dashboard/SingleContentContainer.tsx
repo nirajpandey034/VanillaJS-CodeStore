@@ -21,6 +21,7 @@ function TabPanel(props: TabPanelProps) {
       hidden={value !== index}
       id={`simple-tabpanel-${index}`}
       aria-labelledby={`simple-tab-${index}`}
+      className="single-content-container"
       {...other}
     >
       {value === index && (
@@ -84,13 +85,13 @@ function SingleContentContainer({
         ) : (
           <>
             <TabPanel value={value} index={0}>
-              {htmlCode}
+              <code style={{ fontFamily: "Monaco" }}>{htmlCode}</code>
             </TabPanel>
             <TabPanel value={value} index={1}>
-              {cssCode}
+              <code style={{ fontFamily: "Monaco" }}>{cssCode}</code>
             </TabPanel>
             <TabPanel value={value} index={2}>
-              {jsCode}
+              <code style={{ fontFamily: "Monaco" }}>{jsCode}</code>
             </TabPanel>
           </>
         )}

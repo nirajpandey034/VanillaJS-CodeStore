@@ -6,14 +6,16 @@ function ContentListItem({ item, getContent }: { item: any; getContent: any }) {
   return (
     <Grid
       container
-      className="hover:border-blue-700 border-transparent border-2 hover:border-current"
+      className="hover:border-green-700 border-transparent border-2 hover:border-current rounded-lg py-1"
     >
-      <Grid item xs={8}>
-        <p
-          onClick={() => {
-            getContent(item.id);
-          }}
-        >
+      <Grid
+        item
+        xs={8}
+        onClick={() => {
+          getContent(item.id);
+        }}
+      >
+        <p style={{ fontFamily: "Monaco", wordWrap: "break-word" }}>
           {item.title}
         </p>
       </Grid>
