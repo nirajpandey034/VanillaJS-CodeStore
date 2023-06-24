@@ -3,7 +3,7 @@ import { getCookie } from "typescript-cookie";
 const SaveContent = async (data: Content) => {
   try {
     const response = await fetch(
-      "https://dull-puce-badger-tux.cyclic.app/content/post-content",
+      "https://dull-puce-badger-tux.cyclic.app/content/post_content",
       {
         method: "post",
         headers: {
