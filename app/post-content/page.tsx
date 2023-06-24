@@ -1,4 +1,3 @@
-"use client";
 import SaveContentContainer from "@/components/SaveContent/SaveContentContainer";
 export default function Home() {
   return (
