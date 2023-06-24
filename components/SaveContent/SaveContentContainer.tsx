@@ -45,7 +45,7 @@ function SaveContentContainer() {
     if (getCookie("token")) {
       setOpenLoginModal(false);
     } else setOpenLoginModal(true);
-  }, [getCookie("token")]);
+  }, []);
   return (
     <Container
       maxWidth="xl"
