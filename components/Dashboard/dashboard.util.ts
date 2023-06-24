@@ -13,8 +13,8 @@ const getContentWithId = async (id: string) => {
         }),
       }
     );
-    const content = await response.json();
-    return content;
+    const { data } = await response.json();
+    return data[0];
   } catch (err) {
     throw new Error("Please try again");
   }

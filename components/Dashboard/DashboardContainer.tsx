@@ -1,21 +1,44 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import ContentList from "./ContentList";
 import SingleContentContainer from "./SingleContentContainer";
 import getContentWithId from "./dashboard.util";
+import Content from "../../interfaces/Content";
+import { Grid, Container } from "@mui/material";
 
 function DashboardContainer({ contentList }: any) {
-  const [content, setContent] = useState({});
+  const [singleContent, setSingleContent] = useState<Content | undefined>();
+
+  const [loading, setLoading] = useState<boolean>(false);
 
   const getContent = async (id: string) => {
-    const response = await getContentWithId(id);
-    setContent(response);
+    setLoading(true);
+    const data = await getContentWithId(id);
+    const obj = {
+      title: data.title,
+      description: data.description,
+      htmlsnippet: data.htmlsnippet,
+      csssnippet: data.csssnippet,
+      jssnippet: data.jssnippet,
+    };
+    setSingleContent(obj);
+    setLoading(false);
   };
   return (
-    <div>
-      <ContentList listData={contentList?.data} getContent={getContent} />
-      <SingleContentContainer />
-    </div>
+    <Container maxWidth="xl">
+      <Grid
+        container
+        justifyContent="space-between"
+        sx={{ height: "100vh", width: "90%" }}
+      >
+        <Grid item xs={4}>
+          <ContentList listData={contentList?.data} getContent={getContent} />
+        </Grid>
+        <Grid item xs={7}>
+          <SingleContentContainer content={singleContent} loading={loading} />
+        </Grid>
+      </Grid>
+    </Container>
   );
 }
 
