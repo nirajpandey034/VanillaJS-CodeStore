@@ -25,13 +25,13 @@ function DashboardContainer({ contentList }: any) {
     setLoading(false);
   };
   return (
-    <Container maxWidth="xl">
+    <Container maxWidth="xl" sx={{ height: "100vh" }}>
       <Grid
         container
         justifyContent="space-between"
-        sx={{ height: "100vh", width: "90%", pt: 2 }}
+        sx={{ width: "90%", height: "100%", pt: 2, overflowY: "scroll" }}
       >
-        <Grid item xs={3}>
+        <Grid item xs={3} className="shadow-lg bg-gray-50 rounded-lg">
           <ContentList listData={contentList?.data} getContent={getContent} />
         </Grid>
         <Grid item xs={8}>
