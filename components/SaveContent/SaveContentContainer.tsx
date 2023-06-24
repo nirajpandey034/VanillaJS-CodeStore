@@ -1,3 +1,4 @@
+"use client";
 import React, { useState, useEffect } from "react";
 import { Container, Grid, TextField, Stack, Typography } from "@mui/material";
 import { getCookie } from "typescript-cookie";
@@ -44,7 +45,7 @@ function SaveContentContainer() {
     if (getCookie("token")) {
       setOpenLoginModal(false);
     } else setOpenLoginModal(true);
-  }, [getCookie("token")]);
+  }, []);
   return (
     <Container
       maxWidth="xl"
