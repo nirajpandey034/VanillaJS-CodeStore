@@ -1,0 +1,17 @@
+.class-list::-webkit-scrollbar {
+  display: none;
+}
+
+.class-list {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.single-content-container::-webkit-scrollbar {
+  display: none;
+}
+
+.single-content-container {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
