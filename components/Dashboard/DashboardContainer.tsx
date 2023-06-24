@@ -36,9 +36,6 @@ function DashboardContainer({ contentList }: any) {
     setSingleContent(obj);
     setLoading(false);
   };
-  React.useEffect(() => {
-    console.log(contentList);
-  }, [contentList]);
   return (
     <Container maxWidth="xl" sx={{ height: "100vh" }}>
       <Grid
