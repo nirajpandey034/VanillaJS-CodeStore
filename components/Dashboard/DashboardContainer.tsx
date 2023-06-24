@@ -4,7 +4,7 @@ import ContentList from "./ContentList";
 import SingleContentContainer from "./SingleContentContainer";
 import getContentWithId from "./dashboard.util";
 import Content from "../../interfaces/Content";
-import isObjectEmpty from "@/utilities/isObjectEmpty";
+import { Grid, Container } from "@mui/material";
 
 function DashboardContainer({ contentList }: any) {
   const [singleContent, setSingleContent] = useState<Content | undefined>();
@@ -25,10 +25,21 @@ function DashboardContainer({ contentList }: any) {
     setLoading(false);
   };
   return (
-    <div>
-      <ContentList listData={contentList?.data} getContent={getContent} />
-      <SingleContentContainer content={singleContent} loading={loading} />
-    </div>
+    <Container maxWidth="lg">
+      <Grid
+        container
+        justifyContent="center"
+        alignItems="center"
+        sx={{ height: "100vh" }}
+      >
+        <Grid item xs={3}>
+          <ContentList listData={contentList?.data} getContent={getContent} />
+        </Grid>
+        <Grid item xs={9}>
+          <SingleContentContainer content={singleContent} loading={loading} />
+        </Grid>
+      </Grid>
+    </Container>
   );
 }
 

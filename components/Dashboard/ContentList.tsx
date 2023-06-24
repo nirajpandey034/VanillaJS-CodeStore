@@ -12,7 +12,7 @@ function ContentList({ listData, getContent }: any) {
             getContent(item.id);
           }}
         >
-          {item.id} - {item.title}
+          {item.title}
         </p>
       ))}
     </div>
