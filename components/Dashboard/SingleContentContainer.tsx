@@ -5,6 +5,10 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
+import Loader from "../shared/loader/Loader";
+import HtmlIcon from "@mui/icons-material/Html";
+import CssIcon from "@mui/icons-material/Css";
+import JavascriptIcon from "@mui/icons-material/Javascript";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -75,26 +79,43 @@ function SingleContentContainer({
             onChange={handleChange}
             aria-label="basic tabs example"
           >
-            <Tab label="HTML" {...a11yProps(0)} />
-            <Tab label="CSS" {...a11yProps(1)} />
-            <Tab label="JS" {...a11yProps(2)} />
+            <Tab
+              // label="HTML"
+              {...a11yProps(0)}
+              icon={<HtmlIcon fontSize="large" />}
+              iconPosition="start"
+            />
+            <Tab
+              // label="CSS"
+              {...a11yProps(1)}
+              icon={<CssIcon fontSize="large" />}
+              iconPosition="start"
+            />
+            <Tab
+              // label="JS"
+              {...a11yProps(2)}
+              icon={<JavascriptIcon fontSize="large" />}
+              iconPosition="start"
+            />
           </Tabs>
         </Box>
-        {loading ? (
-          <CircularProgress />
-        ) : (
-          <>
-            <TabPanel value={value} index={0}>
-              <code style={{ fontFamily: "Monaco" }}>{htmlCode}</code>
-            </TabPanel>
-            <TabPanel value={value} index={1}>
-              <code style={{ fontFamily: "Monaco" }}>{cssCode}</code>
-            </TabPanel>
-            <TabPanel value={value} index={2}>
-              <code style={{ fontFamily: "Monaco" }}>{jsCode}</code>
-            </TabPanel>
-          </>
-        )}
+        <div className="shadow-lg bg-gray-50 rounded-lg min-h-screen">
+          {loading ? (
+            <Loader />
+          ) : (
+            <>
+              <TabPanel value={value} index={0}>
+                <code style={{ fontFamily: "Monaco" }}>{htmlCode}</code>
+              </TabPanel>
+              <TabPanel value={value} index={1}>
+                <code style={{ fontFamily: "Monaco" }}>{cssCode}</code>
+              </TabPanel>
+              <TabPanel value={value} index={2}>
+                <code style={{ fontFamily: "Monaco" }}>{jsCode}</code>
+              </TabPanel>
+            </>
+          )}
+        </div>
       </>
     </div>
   );
