@@ -4,7 +4,10 @@ import EditNoteIcon from "@mui/icons-material/EditNote";
 
 function ContentListItem({ item, getContent }: { item: any; getContent: any }) {
   return (
-    <Grid container>
+    <Grid
+      container
+      className="hover:border-gray-700 border-transparent border-2 hover:border-current"
+    >
       <Grid item xs={8}>
         <p
           onClick={() => {
