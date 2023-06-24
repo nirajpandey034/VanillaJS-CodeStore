@@ -32,10 +32,10 @@ function DashboardContainer({ contentList }: any) {
         alignItems="center"
         sx={{ height: "100vh" }}
       >
-        <Grid item xs={3}>
+        <Grid item xs={2}>
           <ContentList listData={contentList?.data} getContent={getContent} />
         </Grid>
-        <Grid item xs={9}>
+        <Grid item xs={10}>
           <SingleContentContainer content={singleContent} loading={loading} />
         </Grid>
       </Grid>
