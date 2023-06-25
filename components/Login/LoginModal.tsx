@@ -15,10 +15,14 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
-function LoginModal() {
+function LoginModal(setOpenLoginModal: any) {
   const [open, setOpen] = useState(true);
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleClose = (event: any, reason: string) => {
+    if (reason && reason == "backdropClick") return;
+    setOpen(false);
+    setOpenLoginModal(false);
+  };
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -28,11 +32,7 @@ function LoginModal() {
 
   const login = async () => {
     setLoadingButton(true);
-    await doLogin(
-      { email: email, password: password },
-      handleOpen,
-      handleClose
-    );
+    await doLogin({ email: email, password: password }, handleOpen, setOpen);
     setLoadingButton(false);
   };
 
