@@ -21,3 +21,15 @@
 .submitButton:hover {
   background-color: #075ec2;
 }
+
+a {
+  text-decoration: underline;
+  color: rgb(49, 49, 205);
+}
+
+.desktopRestriction {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}

@@ -10,6 +10,9 @@ import SaveContent from "./SaveContent.util";
 
 import LoginModal from "../Login/LoginModal";
 
+import { useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
+
 function SaveContentContainer() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -19,6 +22,9 @@ function SaveContentContainer() {
   const [disableButton, setDisableButton] = useState(true);
 
   const [openLoginModal, setOpenLoginModal] = useState(false);
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const isDesktop = useMediaQuery(theme.breakpoints.up("sm"));
 
   useEffect(() => {
     if (
@@ -52,122 +58,136 @@ function SaveContentContainer() {
       maxWidth="xl"
       sx={{ height: "100vh", pt: "2rem", pb: "3rem", overflow: "scroll" }}
     >
-      <Stack direction="column" spacing={5} sx={{ height: "100%" }}>
-        <Typography
-          variant="h4"
-          sx={{ textDecoration: "underline", cursor: "pointer" }}
-          onClick={() => {
-            window.location.replace("https://vanillajs-codestore.vercel.app/");
-          }}
-        >
-          VanillsJS-CodeStore
-        </Typography>
-        <Stack direction="column" spacing={5}>
-          <TextField
-            label="Title"
-            sx={{
-              width: "100%",
-              backgroundColor: "white",
-              color: "black",
-            }}
-            className="shadow-md"
-            value={title}
-            onChange={(e) => {
-              setTitle(e.target.value);
-            }}
-          ></TextField>
+      {isDesktop && (
+        <>
+          <Stack direction="column" spacing={5} sx={{ height: "100%" }}>
+            <Typography
+              variant="h4"
+              sx={{ textDecoration: "underline", cursor: "pointer" }}
+              onClick={() => {
+                window.location.replace(
+                  "https://vanillajs-codestore.vercel.app/"
+                );
+              }}
+            >
+              VanillsJS-CodeStore
+            </Typography>
+            <Stack direction="column" spacing={5}>
+              <TextField
+                label="Title"
+                sx={{
+                  width: "100%",
+                  backgroundColor: "white",
+                  color: "black",
+                }}
+                className="shadow-md"
+                value={title}
+                onChange={(e) => {
+                  setTitle(e.target.value);
+                }}
+              ></TextField>
 
-          <TextField
-            label="Description"
-            sx={{
-              width: "100%",
-              backgroundColor: "white",
-              color: "black",
-            }}
-            value={description}
-            className="shadow-md"
-            onChange={(e) => {
-              setDescription(e.target.value);
-            }}
-          ></TextField>
-        </Stack>
-        {/* code section */}
-        <Grid container spacing={2}>
-          <Grid
-            item
-            xs={6}
-            sx={{
-              height: "20rem",
-              paddingLeft: "0rem !important",
-              pt: "0rem !important",
-            }}
-            className="shadow-inner"
-          >
-            <TextField
-              label="HTML"
-              multiline
-              className="codeBox shadow-inner"
-              value={htmlCode}
-              onChange={(e) => {
-                setHtmlCode(e.target.value);
+              <TextField
+                label="Description"
+                sx={{
+                  width: "100%",
+                  backgroundColor: "white",
+                  color: "black",
+                }}
+                value={description}
+                className="shadow-md"
+                onChange={(e) => {
+                  setDescription(e.target.value);
+                }}
+              ></TextField>
+            </Stack>
+            {/* code section */}
+            <Grid container spacing={2}>
+              <Grid
+                item
+                xs={6}
+                sx={{
+                  height: "20rem",
+                  paddingLeft: "0rem !important",
+                  pt: "0rem !important",
+                }}
+                className="shadow-inner"
+              >
+                <TextField
+                  label="HTML"
+                  multiline
+                  className="codeBox shadow-inner"
+                  value={htmlCode}
+                  onChange={(e) => {
+                    setHtmlCode(e.target.value);
+                  }}
+                ></TextField>
+              </Grid>
+              <Grid
+                item
+                xs={6}
+                sx={{
+                  height: "20rem",
+                  paddingRight: "1rem !important",
+                  pt: "0rem !important",
+                }}
+                className="shadow-inner"
+              >
+                <TextField
+                  label="CSS"
+                  multiline
+                  className="codeBox"
+                  value={cssCode}
+                  onChange={(e) => {
+                    setCssCode(e.target.value);
+                  }}
+                ></TextField>
+              </Grid>
+              <Grid
+                item
+                xs={12}
+                sx={{
+                  height: "20rem",
+                  padding: "0px  !important",
+                  mt: "2rem",
+                  paddingRight: "1rem !important",
+                }}
+                className="shadow-inner"
+              >
+                <TextField
+                  label="Javascript"
+                  multiline
+                  className="codeBox"
+                  value={jsCode}
+                  onChange={(e) => {
+                    setJsCode(e.target.value);
+                  }}
+                ></TextField>
+              </Grid>
+            </Grid>
+            <Button
+              variant="contained"
+              disabled={disableButton}
+              endIcon={<SendIcon />}
+              className="submitButton"
+              onClick={(e) => {
+                OnSubmit(e);
               }}
-            ></TextField>
-          </Grid>
-          <Grid
-            item
-            xs={6}
-            sx={{
-              height: "20rem",
-              paddingRight: "1rem !important",
-              pt: "0rem !important",
-            }}
-            className="shadow-inner"
-          >
-            <TextField
-              label="CSS"
-              multiline
-              className="codeBox"
-              value={cssCode}
-              onChange={(e) => {
-                setCssCode(e.target.value);
-              }}
-            ></TextField>
-          </Grid>
-          <Grid
-            item
-            xs={12}
-            sx={{
-              height: "20rem",
-              padding: "0px  !important",
-              mt: "2rem",
-              paddingRight: "1rem !important",
-            }}
-            className="shadow-inner"
-          >
-            <TextField
-              label="Javascript"
-              multiline
-              className="codeBox"
-              value={jsCode}
-              onChange={(e) => {
-                setJsCode(e.target.value);
-              }}
-            ></TextField>
-          </Grid>
-        </Grid>
-        <Button
-          variant="contained"
-          disabled={disableButton}
-          endIcon={<SendIcon />}
-          className="submitButton"
-          onClick={(e) => {
-            OnSubmit(e);
-          }}
-        >
-          Submit
-        </Button>
-      </Stack>
-      {openLoginModal && <LoginModal />}
+            >
+              Submit
+            </Button>
+          </Stack>
+          {openLoginModal && <LoginModal />}
+        </>
+      )}
+      {isMobile && (
+        <div className="desktopRestriction">
+          <Typography variant="h5" component="p" sx={{ textAlign: "center" }}>
+            Please view this site in Dektop view.
+          </Typography>
+          <a href="/">Go to Home Page</a>
+        </div>
+      )}
     </Container>
   );
 }
