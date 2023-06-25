@@ -1,10 +1,6 @@
 import User from "../../interfaces/User";
 import { setCookie } from "typescript-cookie";
-const doLogin = async (
-  credentials: User,
-  handleOpen: any,
-  handleClose: any
-) => {
+const doLogin = async (credentials: User, handleOpen: any, setOpen: any) => {
   try {
     const data = await fetch(
       "https://dull-puce-badger-tux.cyclic.app/user/login",
@@ -24,7 +20,7 @@ const doLogin = async (
     const res = await data.json();
     if (res.success) {
       setCookie("token", res.token, { expires: 1 / 24 });
-      handleClose();
+      setOpen(false);
     } else {
       alert("Login failed, Please Try Again");
       handleOpen();

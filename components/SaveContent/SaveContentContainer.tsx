@@ -213,7 +213,9 @@ function SaveContentContainer() {
               </Button>
             )}
           </Stack>
-          {openLoginModal && <LoginModal />}
+          {openLoginModal && (
+            <LoginModal setOpenLoginModal={setOpenLoginModal} />
+          )}
         </>
       )}
       {isMobile && (
