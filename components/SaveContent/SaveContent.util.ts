@@ -3,12 +3,13 @@ import { getCookie } from "typescript-cookie";
 const SaveContent = async (data: Content) => {
   try {
     const response = await fetch(
-      "https://dull-puce-badger-tux.cyclic.app/content/post-content",
+      "https://dull-puce-badger-tux.cyclic.app/content/post_content",
       {
         method: "post",
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
+          "x-access-token": getCookie("token") || "",
         },
         body: JSON.stringify({
           title: data.title,
@@ -20,8 +21,8 @@ const SaveContent = async (data: Content) => {
         }),
       }
     );
-    console.log(await response.json());
-    window.location.reload();
+    alert("Content Uploaded Successfully");
+    return;
   } catch (err) {
     console.log(err);
   }
