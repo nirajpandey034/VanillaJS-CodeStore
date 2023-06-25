@@ -4,7 +4,9 @@ const SaveContent = async (data: Content) => {
   try {
     const response = await fetch(
       "https://dull-puce-badger-tux.cyclic.app/content/post_content",
+
       {
+        cache: "no-store",
         method: "post",
         headers: {
           Accept: "application/json",
