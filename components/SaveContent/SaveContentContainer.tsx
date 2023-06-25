@@ -31,7 +31,8 @@ function SaveContentContainer() {
       setDisableButton(false);
     } else setDisableButton(true);
   }, [title, description, htmlCode, cssCode, jsCode]);
-  const OnSubmit = async () => {
+  const OnSubmit = async (e: any) => {
+    e.stopPropagation();
     await SaveContent({
       title: title,
       description: description,
@@ -159,12 +160,14 @@ function SaveContentContainer() {
           disabled={disableButton}
           endIcon={<SendIcon />}
           className="submitButton"
-          onClick={OnSubmit}
+          onClick={(e) => {
+            OnSubmit(e);
+          }}
         >
           Submit
         </Button>
       </Stack>
-      {openLoginModal && <LoginModal openModal={openLoginModal} />}
+      {openLoginModal && <LoginModal />}
     </Container>
   );
 }

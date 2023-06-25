@@ -9,6 +9,7 @@ const SaveContent = async (data: Content) => {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
+          "x-access-token": getCookie("token") || "",
         },
         body: JSON.stringify({
           title: data.title,
@@ -20,8 +21,8 @@ const SaveContent = async (data: Content) => {
         }),
       }
     );
-    console.log(await response.json());
-    window.location.reload();
+    alert("Content Uploaded Successfully");
+    return;
   } catch (err) {
     console.log(err);
   }

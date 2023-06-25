@@ -16,7 +16,7 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
-function LoginModal(openModal: any = false) {
+function LoginModal() {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -42,10 +42,10 @@ function LoginModal(openModal: any = false) {
     else setDisabledButton(true);
   }, [email, password]);
 
-  React.useEffect(() => {
-    if (openModal) setOpen(true);
-    else setOpen(false);
-  }, [openModal]);
+  // React.useEffect(() => {
+  //   if (openModal) setOpen(true);
+  //   else setOpen(false);
+  // }, [openModal]);
   return (
     <div>
       <Button onClick={handleOpen}>Open modal</Button>
