@@ -9,6 +9,7 @@ const doLogin = async (
     const data = await fetch(
       "https://dull-puce-badger-tux.cyclic.app/user/login",
       {
+        cache: "no-store",
         method: "post",
         headers: {
           Accept: "application/json",

@@ -4,7 +4,10 @@ export default async function Home() {
   let items = [];
   const getList = async () => {
     const data = await fetch(
-      "https://dull-puce-badger-tux.cyclic.app/content/get_titles"
+      "https://dull-puce-badger-tux.cyclic.app/content/get_titles",
+      {
+        cache: "no-store",
+      }
     );
     return data;
   };
