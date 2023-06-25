@@ -23,8 +23,9 @@ const SaveContent = async (data: Content) => {
         }),
       }
     );
-    alert("Content Uploaded Successfully");
-    return;
+    const res = await response.json();
+    // alert("Content Uploaded Successfully");
+    return response.status;
   } catch (err) {
     console.log(err);
   }
