@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
 
 import doLogin from "./Login.util";
@@ -17,7 +16,7 @@ const style = {
   p: 4,
 };
 function LoginModal() {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
@@ -42,13 +41,8 @@ function LoginModal() {
     else setDisabledButton(true);
   }, [email, password]);
 
-  // React.useEffect(() => {
-  //   if (openModal) setOpen(true);
-  //   else setOpen(false);
-  // }, [openModal]);
   return (
     <div>
-      <Button onClick={handleOpen}>Open modal</Button>
       <Modal
         open={open}
         onClose={handleClose}
