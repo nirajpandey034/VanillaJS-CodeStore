@@ -19,7 +19,7 @@ const SaveContent = async (data: Content) => {
           htmlsnippet: data.htmlsnippet,
           csssnippet: data.csssnippet,
           jssnippet: data.jssnippet,
-          token: getCookie("token"),
+          // token: getCookie("token"),
         }),
       }
     );
