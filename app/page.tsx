@@ -5,7 +5,7 @@ export default async function Home() {
   let jokes = [];
   const getList = async () => {
     const data = await fetch(
-      "https://dull-puce-badger-tux.cyclic.app/content/get_titles",
+      `${process.env.NEXT_PUBLIC_API_URL}content/get_titles`,
       {
         cache: "no-store",
       }

@@ -1,7 +1,7 @@
 const getContentWithId = async (id: string) => {
   try {
     const response = await fetch(
-      "https://dull-puce-badger-tux.cyclic.app/content/get_content_with_id",
+      `${process.env.NEXT_PUBLIC_API_URL}content/get_content_with_id`,
       {
         method: "post",
         headers: {
