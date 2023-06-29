@@ -15,7 +15,7 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 
-function DashboardContainer({ contentList }: any) {
+function DashboardContainer({ contentList, jokes }: any) {
   const [singleContent, setSingleContent] = useState<Content | undefined>();
 
   const [loading, setLoading] = useState<boolean>(false);
@@ -94,7 +94,11 @@ function DashboardContainer({ contentList }: any) {
             md={8}
             sx={{ maxHeight: "100vh", overflowY: "scroll" }}
           >
-            <SingleContentContainer content={singleContent} loading={loading} />
+            <SingleContentContainer
+              content={singleContent}
+              loading={loading}
+              jokes={jokes}
+            />
           </Grid>
         )}
       </Grid>
