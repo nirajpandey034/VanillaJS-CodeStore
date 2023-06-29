@@ -49,9 +49,14 @@ function SaveContentContainer() {
         csssnippet: cssCode,
         jssnippet: jsCode,
       })) || 0;
-    if (status / 100 === 2) alert("Code Uploaded Successfully");
-    else alert("Code Uploading failed, Please Try again");
-    setLoadingButton(false);
+    if (status / 100 === 2) {
+      alert("Code Uploaded Successfully");
+      setLoadingButton(false);
+      window.location.reload();
+    } else {
+      alert("Code Uploading failed, Please Try again");
+      setLoadingButton(false);
+    }
   };
 
   useEffect(() => {

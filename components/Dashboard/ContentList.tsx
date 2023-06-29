@@ -6,13 +6,7 @@ import "./style.css";
 import { TextField, Box } from "@mui/material";
 function ContentList({ listData, getContent }: any) {
   return (
-    <div
-      className="class-list"
-      style={{
-        overflowY: "scroll",
-        msOverflowStyle: "none",
-      }}
-    >
+    <div className="class-list">
       <Box component="form" noValidate autoComplete="off" sx={{ p: 1 }}>
         {/* functionality yet to be implemented */}
         <TextField

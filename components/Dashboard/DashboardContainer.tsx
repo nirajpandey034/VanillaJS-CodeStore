@@ -37,7 +37,7 @@ function DashboardContainer({ contentList }: any) {
     setLoading(false);
   };
   return (
-    <Container maxWidth="xl" sx={{ height: "100vh" }}>
+    <Container maxWidth="xl" sx={{ minHeight: "100vh" }}>
       <Grid
         container
         justifyContent="space-between"
@@ -45,7 +45,7 @@ function DashboardContainer({ contentList }: any) {
           width: { xs: "100%", md: "90%" },
           height: "100%",
           pt: 2,
-          overflowY: "scroll",
+          // overflowY: "scroll",
         }}
       >
         {isMobile && (
@@ -77,14 +77,26 @@ function DashboardContainer({ contentList }: any) {
           </Grid>
         )}
         {isDesktop && (
-          <Grid item xs={3} className="shadow-lg bg-gray-50 rounded-lg">
+          <Grid
+            item
+            xs={3}
+            className="shadow-lg bg-gray-50 rounded-lg"
+            sx={{ maxHeight: "100vh", overflowY: "scroll" }}
+          >
             <ContentList listData={contentList?.data} getContent={getContent} />
           </Grid>
         )}
 
-        <Grid item xs={12} md={8}>
-          <SingleContentContainer content={singleContent} loading={loading} />
-        </Grid>
+        {(isMobile || isDesktop) && (
+          <Grid
+            item
+            xs={12}
+            md={8}
+            sx={{ maxHeight: "100vh", overflowY: "scroll" }}
+          >
+            <SingleContentContainer content={singleContent} loading={loading} />
+          </Grid>
+        )}
       </Grid>
     </Container>
   );
