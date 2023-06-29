@@ -8,9 +8,13 @@ import { TextField, Box, Typography } from "@mui/material";
 import searchTitle from "./content.util";
 import { debounce } from "lodash";
 
+import EditRequestModal from "../EditRequest/EditRequestModal";
+
 function ContentList({ listData, getContent }: any) {
   const [selectedItem, setSelectedItem] = useState("");
   const [contentList, setContentList] = useState(listData);
+  const [openEditModal, setOpenEditModal] = useState(false);
+  const [editRequestDetails, setEditRequestDetails] = useState("");
 
   const getData = async (str: string) => {
     try {
@@ -24,9 +28,6 @@ function ContentList({ listData, getContent }: any) {
   const debouncedSearch = debounce(async (str: string) => {
     await getData(str);
   }, 300);
-  React.useEffect(() => {
-    console.log(contentList);
-  }, [contentList]);
 
   return (
     <div className="class-list">
@@ -63,8 +64,17 @@ function ContentList({ listData, getContent }: any) {
           getContent={getContent}
           setSelectedItem={setSelectedItem}
           selectedItem={selectedItem}
+          setOpenEditModal={setOpenEditModal}
+          setEditRequestDetails={setEditRequestDetails}
         />
       ))}
+      {openEditModal && (
+        <EditRequestModal
+          isOpen={openEditModal}
+          setOpenEditModal={setOpenEditModal}
+          editRequestDetails={editRequestDetails}
+        />
+      )}
     </div>
   );
 }

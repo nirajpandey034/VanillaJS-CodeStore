@@ -8,11 +8,15 @@ function ContentListItem({
   getContent,
   setSelectedItem,
   selectedItem,
+  setOpenEditModal,
+  setEditRequestDetails,
 }: {
   item: any;
   getContent: any;
   setSelectedItem: any;
   selectedItem: string;
+  setOpenEditModal: any;
+  setEditRequestDetails: any;
 }) {
   return (
     <a
@@ -51,7 +55,9 @@ function ContentListItem({
               <EditNoteIcon
                 className="group-hover:stroke-white"
                 onClick={(e) => {
-                  alert("Here, You can make a edit request");
+                  setEditRequestDetails({ title: item.title, id: item.id });
+                  setOpenEditModal(true);
+                  // alert("Here, You can make a edit request");
                 }}
               />
             </Grid>
