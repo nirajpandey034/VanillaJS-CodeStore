@@ -2,6 +2,7 @@ import React from "react";
 import { Grid } from "@mui/material";
 import EditNoteIcon from "@mui/icons-material/EditNote";
 import TerminalIcon from "@mui/icons-material/Terminal";
+import Tooltip from "@mui/material/Tooltip";
 
 function ContentListItem({
   item,
@@ -43,23 +44,27 @@ function ContentListItem({
           <Grid container item xs={6} spacing={2} justifyContent="center">
             <Grid item>
               {item?.liveurl && (
-                <TerminalIcon
-                  className="group-hover:stroke-white"
-                  onClick={(e) => {
-                    window.open(item.liveurl, "_blank")!.focus();
-                  }}
-                />
+                <Tooltip title="Live Example">
+                  <TerminalIcon
+                    className="group-hover:stroke-white"
+                    onClick={(e) => {
+                      window.open(item.liveurl, "_blank")!.focus();
+                    }}
+                  />
+                </Tooltip>
               )}
             </Grid>
             <Grid item>
-              <EditNoteIcon
-                className="group-hover:stroke-white"
-                onClick={(e) => {
-                  setEditRequestDetails({ title: item.title, id: item.id });
-                  setOpenEditModal(true);
-                  // alert("Here, You can make a edit request");
-                }}
-              />
+              <Tooltip title="Raise Edit Request">
+                <EditNoteIcon
+                  className="group-hover:stroke-white"
+                  onClick={(e) => {
+                    setEditRequestDetails({ title: item.title, id: item.id });
+                    setOpenEditModal(true);
+                    // alert("Here, You can make a edit request");
+                  }}
+                />
+              </Tooltip>
             </Grid>
           </Grid>
         )}

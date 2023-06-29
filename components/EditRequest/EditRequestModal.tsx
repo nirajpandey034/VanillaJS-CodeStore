@@ -64,7 +64,7 @@ const EditRequestModal = ({
             component="h2"
             sx={{ textAlign: "center" }}
           >
-            {editRequestDetails.title}
+            Comment Regarding - <strong>{editRequestDetails.title}</strong>
           </Typography>
           <TextField
             multiline
