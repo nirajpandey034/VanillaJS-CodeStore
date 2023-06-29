@@ -5,7 +5,7 @@ export default async function Home() {
   let jokes = [];
   const getList = async () => {
     const data = await fetch(
-      "https://dull-puce-badger-tux.cyclic.app/content/get_titles",
+      `${process.env.NEXT_PUBLIC_API_URL}content/get_titles`,
       {
         cache: "no-store",
       }
@@ -13,9 +13,9 @@ export default async function Home() {
     return data;
   };
   const getJokes = async () => {
-    const data = await fetch("https://api.api-ninjas.com/v1/jokes?limit=3", {
+    const data = await fetch(`${process.env.NEXT_PUBLIC_JOKE_API}`, {
       headers: {
-        "X-Api-Key": "xo8IrW7gQ02g8u6ARHDW8w==u9qaebBrqUBhdx3r",
+        "X-Api-Key": `${process.env.NEXT_PUBLIC_JOKE_API_KEY}`,
       },
       cache: "no-store",
     });
