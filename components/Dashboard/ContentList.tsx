@@ -44,7 +44,7 @@ function ContentList({ listData, getContent }: any) {
       </Box>
       {contentList.length === 0 && (
         <Typography sx={{ textAlign: "center", wordWrap: "break-word" }}>
-          We got nothing matching your search.{" "}
+          We got nothing.{" "}
           <i>
             <a
               href="mailto:nirajpandey034@email.com"
@@ -53,7 +53,7 @@ function ContentList({ listData, getContent }: any) {
               Please write to us
             </a>
           </i>
-          , We will try our best to add the solution to your problem.
+          , for any specific requirements.
         </Typography>
       )}
       {contentList.map((item: Item, index: number) => (
