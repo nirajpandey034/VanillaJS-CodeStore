@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { TextField, Button, Typography, Box, Modal } from "@mui/material";
 import "./style.css";
 
+import submitComment from "./EditRequest.util";
+
 const style = {
   position: "absolute" as "absolute",
   top: "50%",
@@ -43,10 +45,15 @@ const EditRequestModal = ({
 
   const onSubmit = () => {
     if (comment.length > 0) {
-      alert("Thank you for your time, we will consider you comment/suggestion");
-      setComment("");
-      setOpen(false);
-      setOpenEditModal(false);
+      // alert("Thank you for your time, we will consider you comment/suggestion");
+      submitComment({
+        id: editRequestDetails.id,
+        title: editRequestDetails.title,
+        comment: comment,
+        setComment: setComment,
+        setOpen: setOpen,
+        setOpenEditModal: setOpenEditModal,
+      });
     }
   };
   return (
