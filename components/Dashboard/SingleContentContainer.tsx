@@ -77,9 +77,9 @@ function SingleContentContainer({
 
   useEffect(() => {
     if (!content) {
-      setHtmlCode((htmlCode) => jokes[0].joke);
-      setCssCode((cssCode) => jokes[1].joke);
-      setJsCode((jsCode) => jokes[2].joke);
+      setHtmlCode((htmlCode) => jokes[0]?.joke || "Please select from list");
+      setCssCode((cssCode) => jokes[1]?.joke || "Please select from list");
+      setJsCode((jsCode) => jokes[2]?.joke || "Please select from list");
     } else {
       setHtmlCode((htmlCode) => content?.htmlsnippet || htmlCode);
       setCssCode((cssCode) => content?.csssnippet || cssCode);

@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Item from "../../interfaces/ListItem";
 import ContentListItem from "./ContentListItem";
 import "./style.css";
-import { TextField, Box } from "@mui/material";
+import { TextField, Box, Typography } from "@mui/material";
 
 import searchTitle from "./content.util";
 import { debounce } from "lodash";
@@ -15,7 +15,6 @@ function ContentList({ listData, getContent }: any) {
   const getData = async (str: string) => {
     try {
       const { data }: any = await searchTitle(str);
-      console.log(data.data);
       setContentList(data.data);
     } catch (err) {
       console.log(err);
@@ -25,6 +24,9 @@ function ContentList({ listData, getContent }: any) {
   const debouncedSearch = debounce(async (str: string) => {
     await getData(str);
   }, 300);
+  React.useEffect(() => {
+    console.log(contentList);
+  }, [contentList]);
 
   return (
     <div className="class-list">
@@ -40,7 +42,21 @@ function ContentList({ listData, getContent }: any) {
           }}
         />
       </Box>
-      {contentList?.map((item: Item, index: number) => (
+      {contentList.length === 0 && (
+        <Typography sx={{ textAlign: "center", wordWrap: "break-word" }}>
+          We got nothing matching your search.{" "}
+          <i>
+            <a
+              href="mailto:nirajpandey034@email.com"
+              style={{ textDecoration: "underline", color: "blue" }}
+            >
+              Please write to us
+            </a>
+          </i>
+          , We will try our best to add the solution to your problem.
+        </Typography>
+      )}
+      {contentList.map((item: Item, index: number) => (
         <ContentListItem
           item={item}
           key={index}
