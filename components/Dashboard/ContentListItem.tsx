@@ -14,6 +14,9 @@ function ContentListItem({
   setSelectedItem: any;
   selectedItem: string;
 }) {
+  React.useEffect(() => {
+    console.log(item);
+  }, [item]);
   return (
     <a
       href="#"
@@ -41,23 +44,19 @@ function ContentListItem({
         {selectedItem === item?.id && (
           <Grid container item xs={6} spacing={2} justifyContent="center">
             <Grid item>
-              <TerminalIcon
-                className="group-hover:stroke-white"
-                onClick={(e) => {
-                  // e.preventDefault();
-                  // e.stopPropagation();
-                  // e.nativeEvent.stopImmediatePropagation();
-                  alert("Here, you can see the code live in action");
-                }}
-              />
+              {item?.liveurl && (
+                <TerminalIcon
+                  className="group-hover:stroke-white"
+                  onClick={(e) => {
+                    window.open(item.liveurl, "_blank")!.focus();
+                  }}
+                />
+              )}
             </Grid>
             <Grid item>
               <EditNoteIcon
                 className="group-hover:stroke-white"
                 onClick={(e) => {
-                  // e.preventDefault();
-                  // e.stopPropagation();
-                  // e.nativeEvent.stopImmediatePropagation();
                   alert("Here, You can make a edit request");
                 }}
               />
