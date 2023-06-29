@@ -19,6 +19,7 @@ function SaveContentContainer() {
   const [htmlCode, setHtmlCode] = useState("");
   const [cssCode, setCssCode] = useState("");
   const [jsCode, setJsCode] = useState("");
+  const [liveURL, setLiveUrl] = useState("");
   const [disableButton, setDisableButton] = useState(true);
   const [loadingButton, setLoadingButton] = useState(false);
 
@@ -48,6 +49,7 @@ function SaveContentContainer() {
         htmlsnippet: htmlCode,
         csssnippet: cssCode,
         jssnippet: jsCode,
+        liveurl: liveURL,
       })) || 0;
     if (status / 100 === 2) {
       alert("Code Uploaded Successfully");
@@ -95,6 +97,19 @@ function SaveContentContainer() {
                 value={title}
                 onChange={(e) => {
                   setTitle(e.target.value);
+                }}
+              ></TextField>
+              <TextField
+                label="Code Pen URL"
+                sx={{
+                  width: "100%",
+                  backgroundColor: "white",
+                  color: "black",
+                }}
+                className="shadow-md"
+                value={liveURL}
+                onChange={(e) => {
+                  setLiveUrl(e.target.value);
                 }}
               ></TextField>
 
