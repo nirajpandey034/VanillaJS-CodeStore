@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from "react";
 import Content from "../../interfaces/Content";
-import CircularProgress from "@mui/material/CircularProgress";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
-import Loader from "../shared/loader/Loader";
 import HtmlIcon from "@mui/icons-material/Html";
 import CssIcon from "@mui/icons-material/Css";
 import JavascriptIcon from "@mui/icons-material/Javascript";
 import MultilineSkeleton from "../shared/Skeleton/MultilineSkeleton";
-
+import ContentCopyIcon from "@mui/icons-material/ContentCopy";
+import Chip from "@mui/material/Chip";
 interface TabPanelProps {
   children?: React.ReactNode;
   index: number;
@@ -31,6 +30,21 @@ function TabPanel(props: TabPanelProps) {
     >
       {value === index && (
         <Box sx={{ p: 3 }}>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "flex-end",
+            }}
+          >
+            <Chip
+              icon={<ContentCopyIcon />}
+              label="Copy to clipboard"
+              onClick={() => {
+                navigator.clipboard.writeText(`${children}`);
+              }}
+            />
+          </div>
           <pre>
             <code>{children}</code>
           </pre>
@@ -50,25 +64,28 @@ function a11yProps(index: number) {
 function SingleContentContainer({
   content,
   loading,
+  jokes,
 }: {
   content: Content | undefined;
   loading: boolean;
+  jokes: any;
 }) {
-  const [htmlCode, setHtmlCode] = useState<string>(
-    "Please Select any code from list"
-  );
-  const [cssCode, setCssCode] = useState<string>(
-    "Please Select any code from list"
-  );
-  const [jsCode, setJsCode] = useState<string>(
-    "Please Select any code from list"
-  );
+  const [htmlCode, setHtmlCode] = useState<string>("");
+  const [cssCode, setCssCode] = useState<string>("");
+  const [jsCode, setJsCode] = useState<string>("");
   const [value, setValue] = React.useState(0);
+
   useEffect(() => {
-    setHtmlCode(content?.htmlsnippet || htmlCode);
-    setCssCode(content?.csssnippet || cssCode);
-    setJsCode(content?.jssnippet || jsCode);
-  }, [content, htmlCode, cssCode, jsCode]);
+    if (!content) {
+      setHtmlCode((htmlCode) => jokes[0].joke);
+      setCssCode((cssCode) => jokes[1].joke);
+      setJsCode((jsCode) => jokes[2].joke);
+    } else {
+      setHtmlCode((htmlCode) => content?.htmlsnippet || htmlCode);
+      setCssCode((cssCode) => content?.csssnippet || cssCode);
+      setJsCode((jsCode) => content?.jssnippet || jsCode);
+    }
+  }, [content, jokes]);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
@@ -77,25 +94,18 @@ function SingleContentContainer({
     <div>
       <>
         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-          <Tabs
-            value={value}
-            onChange={handleChange}
-            aria-label="basic tabs example"
-          >
+          <Tabs value={value} onChange={handleChange} aria-label="Code tabs">
             <Tab
-              // label="HTML"
               {...a11yProps(0)}
               icon={<HtmlIcon fontSize="large" />}
               iconPosition="start"
             />
             <Tab
-              // label="CSS"
               {...a11yProps(1)}
               icon={<CssIcon fontSize="large" />}
               iconPosition="start"
             />
             <Tab
-              // label="JS"
               {...a11yProps(2)}
               icon={<JavascriptIcon fontSize="large" />}
               iconPosition="start"
