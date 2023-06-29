@@ -1,8 +1,7 @@
 import React from "react";
 import { Grid } from "@mui/material";
 import EditNoteIcon from "@mui/icons-material/EditNote";
-import ShareIcon from "@mui/icons-material/Share";
-import PrintIcon from "@mui/icons-material/Print";
+import TerminalIcon from "@mui/icons-material/Terminal";
 
 function ContentListItem({
   item,
@@ -42,13 +41,13 @@ function ContentListItem({
         {selectedItem === item?.id && (
           <Grid container item xs={6} spacing={2} justifyContent="center">
             <Grid item>
-              <PrintIcon
+              <TerminalIcon
                 className="group-hover:stroke-white"
                 onClick={(e) => {
                   // e.preventDefault();
                   // e.stopPropagation();
                   // e.nativeEvent.stopImmediatePropagation();
-                  alert("Here, You can take print of you selected code");
+                  alert("Here, you can see the code live in action");
                 }}
               />
             </Grid>
