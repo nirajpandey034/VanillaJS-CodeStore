@@ -26,6 +26,7 @@ function TabPanel(props: TabPanelProps) {
       id={`simple-tabpanel-${index}`}
       aria-labelledby={`simple-tab-${index}`}
       className="single-content-container"
+      style={{ overflowX: "scroll" }}
       {...other}
     >
       {value === index && (
@@ -101,10 +102,7 @@ function SingleContentContainer({
             />
           </Tabs>
         </Box>
-        <div
-          className="shadow-lg bg-gray-50 rounded-lg min-h-screen"
-          style={{ overflow: "scroll" }}
-        >
+        <div className="shadow-lg bg-gray-50 rounded-lg min-h-screen">
           {loading ? (
             <MultilineSkeleton />
           ) : (

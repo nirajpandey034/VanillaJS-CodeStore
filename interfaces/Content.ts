@@ -4,4 +4,5 @@ export default interface Content {
   htmlsnippet: string;
   csssnippet: string;
   jssnippet: string;
+  liveurl?: string;
 }

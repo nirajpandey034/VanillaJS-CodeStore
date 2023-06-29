@@ -5,7 +5,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
   title: "VanillaJS-CodeStore",
-  description: "VanillaJS-CodeStore",
+  description: "VanillaJS-CodeStore for machine coding rounds",
 };
 
 export default function RootLayout({
