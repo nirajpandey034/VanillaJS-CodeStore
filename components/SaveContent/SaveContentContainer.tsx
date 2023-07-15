@@ -3,17 +3,28 @@ import React, { useState, useEffect } from "react";
 import { Container, Grid, TextField, Stack, Typography } from "@mui/material";
 import { getCookie } from "typescript-cookie";
 import Button from "@mui/material/Button";
+import ToggleButton from "@mui/material/ToggleButton";
+import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import SendIcon from "@mui/icons-material/Send";
+import CreateIcon from "@mui/icons-material/Create";
+import ChangeCircleIcon from "@mui/icons-material/ChangeCircle";
+import DynamicFormIcon from "@mui/icons-material/DynamicForm";
+
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
 import "./style.css";
 
-import SaveContent from "./SaveContent.util";
+import { SaveContent, UpdateContent } from "./SaveContent.util";
+import getContentWithId from "../Dashboard/dashboard.util";
 
 import LoginModal from "../Login/LoginModal";
 
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
-function SaveContentContainer() {
+function SaveContentContainer({ contentList }: any) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [htmlCode, setHtmlCode] = useState("");
@@ -24,10 +35,83 @@ function SaveContentContainer() {
   const [loadingButton, setLoadingButton] = useState(false);
 
   const [openLoginModal, setOpenLoginModal] = useState(false);
+  const [alignment, setAlignment] = useState("new");
+  const [program, setProgram] = useState("");
+  const [programId, setProgramId] = useState("");
+
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const isDesktop = useMediaQuery(theme.breakpoints.up("sm"));
 
+  const getContent = async (id: string) => {
+    const data = await getContentWithId(id);
+    setTitle(data.title);
+    setDescription(data.description);
+    setLiveUrl(data.liveurl);
+    setHtmlCode(data.htmlsnippet);
+    setCssCode(data.csssnippet);
+    setJsCode(data.jssnippet);
+  };
+  const handleChange = (
+    event: React.MouseEvent<HTMLElement>,
+    newAlignment: string
+  ) => {
+    setTitle("");
+    setDescription("");
+    setLiveUrl("");
+    setHtmlCode("");
+    setCssCode("");
+    setJsCode("");
+    setAlignment("");
+    setProgram("");
+    setAlignment(newAlignment);
+  };
+
+  const handleSelection = (event: SelectChangeEvent | any) => {
+    setProgram(event.target.value);
+    getContent(event.target.value.id);
+    setProgramId(event.target.value.id);
+  };
+
+  const OnSubmit = async (e: any) => {
+    setLoadingButton(true);
+    e.stopPropagation();
+    let status = 0;
+    if (alignment === "new") {
+      status =
+        (await SaveContent({
+          title: title,
+          description: description,
+          htmlsnippet: htmlCode,
+          csssnippet: cssCode,
+          jssnippet: jsCode,
+          liveurl: liveURL,
+        })) || 0;
+    } else {
+      status =
+        (await UpdateContent({
+          _id: programId,
+          title: title,
+          description: description,
+          htmlsnippet: htmlCode,
+          csssnippet: cssCode,
+          jssnippet: jsCode,
+          liveurl: liveURL,
+        })) || 0;
+    }
+
+    if (status / 100 === 2) {
+      if (alignment === "new") alert("Code Uploaded Successfully");
+      else alert("Code Updated Successfully");
+      setLoadingButton(false);
+      window.location.reload();
+    } else {
+      if (alignment === "new") alert("Code Uploading failed, Please Try again");
+      else alert("Code Updating failed, Please Try again");
+
+      setLoadingButton(false);
+    }
+  };
   useEffect(() => {
     if (
       title.length > 0 &&
@@ -39,28 +123,6 @@ function SaveContentContainer() {
       setDisableButton(false);
     } else setDisableButton(true);
   }, [title, description, htmlCode, cssCode, jsCode]);
-  const OnSubmit = async (e: any) => {
-    setLoadingButton(true);
-    e.stopPropagation();
-    const status =
-      (await SaveContent({
-        title: title,
-        description: description,
-        htmlsnippet: htmlCode,
-        csssnippet: cssCode,
-        jssnippet: jsCode,
-        liveurl: liveURL,
-      })) || 0;
-    if (status / 100 === 2) {
-      alert("Code Uploaded Successfully");
-      setLoadingButton(false);
-      window.location.reload();
-    } else {
-      alert("Code Uploading failed, Please Try again");
-      setLoadingButton(false);
-    }
-  };
-
   useEffect(() => {
     if (getCookie("token")) {
       setOpenLoginModal(false);
@@ -83,11 +145,63 @@ function SaveContentContainer() {
                 );
               }}
             >
+              <DynamicFormIcon fontSize="large" />
               VanillsJS-CodeStore
             </Typography>
+            <ToggleButtonGroup
+              color="secondary"
+              value={alignment}
+              exclusive
+              fullWidth
+              onChange={handleChange}
+              aria-label="Operation"
+            >
+              <ToggleButton value="new" color="primary">
+                <CreateIcon fontSize="small" />
+                New
+              </ToggleButton>
+              <ToggleButton value="update" color="secondary">
+                <ChangeCircleIcon fontSize="small" />
+                Update
+              </ToggleButton>
+            </ToggleButtonGroup>
             <Stack direction="column" spacing={5}>
+              {/* code list for updation */}
+              {alignment === "update" && (
+                <FormControl sx={{ width: "100%" }}>
+                  <InputLabel id="demo-simple-select-autowidth-label">
+                    Select a Program
+                  </InputLabel>
+                  <Select
+                    labelId="program-change-select-label"
+                    id="program-change-select"
+                    value={program}
+                    onChange={handleSelection}
+                    fullWidth
+                    label="Program"
+                    sx={{ backgroundColor: "white", color: "black" }}
+                  >
+                    <MenuItem value="">
+                      <em>None</em>
+                    </MenuItem>
+                    {contentList?.data.length > 0 &&
+                      contentList.data.map(
+                        (item: any, index: React.Key | null | undefined) => {
+                          return (
+                            // eslint-disable-next-line react/jsx-key
+                            <MenuItem value={item} key={index}>
+                              {item.title}
+                            </MenuItem>
+                          );
+                        }
+                      )}
+                  </Select>
+                </FormControl>
+              )}
+              {/* code list ends here */}
               <TextField
                 label="Title"
+                disabled={alignment !== "new"}
                 sx={{
                   width: "100%",
                   backgroundColor: "white",
@@ -217,7 +331,7 @@ function SaveContentContainer() {
                     fill="currentColor"
                   />
                 </svg>
-                Uploading...
+                {alignment === "new" ? <p>Uploading...</p> : <p>Updating...</p>}
               </button>
             ) : (
               <Button
@@ -228,8 +342,9 @@ function SaveContentContainer() {
                 onClick={(e) => {
                   OnSubmit(e);
                 }}
+                sx={{ textTransform: "none" }}
               >
-                Submit
+                {alignment === "new" ? <p>Post</p> : <p>Update</p>}
               </Button>
             )}
           </Stack>
