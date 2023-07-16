@@ -1,5 +1,10 @@
 import CommentBoardContainer from "@/components/CommentBoard/CommentBoardContainer";
-export default async function PostContent() {
+import { Metadata } from "next";
+export const metadata: Metadata = {
+  title: "VanillaJS-CodeStore | Comment",
+  description: "VanillaJS-CodeStore | Comments",
+};
+export default async function Comment() {
   let comments = [];
   const getComments = async () => {
     const data = await fetch(
