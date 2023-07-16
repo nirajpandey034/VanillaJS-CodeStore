@@ -62,4 +62,28 @@ const UpdateContent = async (data: Content | any) => {
     console.log(err);
   }
 };
-export { SaveContent, UpdateContent };
+const DeleteContent = async (data: Content | any) => {
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}content/delete_content`,
+
+      {
+        cache: "no-store",
+        method: "delete",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          "x-access-token": getCookie("token") || "",
+        },
+        body: JSON.stringify({
+          _id: data._id,
+        }),
+      }
+    );
+    const res = await response.json();
+    return response.status;
+  } catch (err) {
+    console.log(err);
+  }
+};
+export { SaveContent, UpdateContent, DeleteContent };
