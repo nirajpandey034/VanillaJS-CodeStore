@@ -9,6 +9,7 @@ import SendIcon from "@mui/icons-material/Send";
 import CreateIcon from "@mui/icons-material/Create";
 import ChangeCircleIcon from "@mui/icons-material/ChangeCircle";
 import DynamicFormIcon from "@mui/icons-material/DynamicForm";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
@@ -16,7 +17,7 @@ import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import "./style.css";
 
-import { SaveContent, UpdateContent } from "./SaveContent.util";
+import { SaveContent, UpdateContent, DeleteContent } from "./SaveContent.util";
 import getContentWithId from "../Dashboard/dashboard.util";
 
 import LoginModal from "../Login/LoginModal";
@@ -87,7 +88,7 @@ function SaveContentContainer({ contentList }: any) {
           jssnippet: jsCode,
           liveurl: liveURL,
         })) || 0;
-    } else {
+    } else if (alignment === "update") {
       status =
         (await UpdateContent({
           _id: programId,
@@ -97,6 +98,11 @@ function SaveContentContainer({ contentList }: any) {
           csssnippet: cssCode,
           jssnippet: jsCode,
           liveurl: liveURL,
+        })) || 0;
+    } else if (alignment === "delete") {
+      status =
+        (await DeleteContent({
+          _id: programId,
         })) || 0;
     }
 
@@ -164,10 +170,14 @@ function SaveContentContainer({ contentList }: any) {
                 <ChangeCircleIcon fontSize="small" />
                 Update
               </ToggleButton>
+              <ToggleButton value="delete" color="error">
+                <DeleteIcon fontSize="small" />
+                Delete
+              </ToggleButton>
             </ToggleButtonGroup>
             <Stack direction="column" spacing={5}>
               {/* code list for updation */}
-              {alignment === "update" && (
+              {(alignment === "update" || alignment === "delete") && (
                 <FormControl sx={{ width: "100%" }}>
                   <InputLabel id="demo-simple-select-autowidth-label">
                     Select a Program
@@ -201,7 +211,7 @@ function SaveContentContainer({ contentList }: any) {
               {/* code list ends here */}
               <TextField
                 label="Title"
-                disabled={alignment !== "new"}
+                disabled={alignment === "update" || alignment === "delete"}
                 sx={{
                   width: "100%",
                   backgroundColor: "white",
@@ -215,6 +225,7 @@ function SaveContentContainer({ contentList }: any) {
               ></TextField>
               <TextField
                 label="Code Pen URL"
+                disabled={alignment === "delete"}
                 sx={{
                   width: "100%",
                   backgroundColor: "white",
@@ -229,6 +240,7 @@ function SaveContentContainer({ contentList }: any) {
 
               <TextField
                 label="Description"
+                disabled={alignment === "delete"}
                 sx={{
                   width: "100%",
                   backgroundColor: "white",
@@ -256,6 +268,7 @@ function SaveContentContainer({ contentList }: any) {
                 <TextField
                   label="HTML"
                   multiline
+                  disabled={alignment === "delete"}
                   className="codeBox shadow-inner"
                   value={htmlCode}
                   onChange={(e) => {
@@ -277,6 +290,7 @@ function SaveContentContainer({ contentList }: any) {
                   label="CSS"
                   multiline
                   className="codeBox"
+                  disabled={alignment === "delete"}
                   value={cssCode}
                   onChange={(e) => {
                     setCssCode(e.target.value);
@@ -298,6 +312,7 @@ function SaveContentContainer({ contentList }: any) {
                   label="Javascript"
                   multiline
                   className="codeBox"
+                  disabled={alignment === "delete"}
                   value={jsCode}
                   onChange={(e) => {
                     setJsCode(e.target.value);
@@ -331,7 +346,9 @@ function SaveContentContainer({ contentList }: any) {
                     fill="currentColor"
                   />
                 </svg>
-                {alignment === "new" ? <p>Uploading...</p> : <p>Updating...</p>}
+                {alignment === "new" && <p>Uploading...</p>}
+                {alignment === "update" && <p>Updating...</p>}
+                {alignment === "delete" && <p>Deleting...</p>}
               </button>
             ) : (
               <Button
@@ -344,7 +361,9 @@ function SaveContentContainer({ contentList }: any) {
                 }}
                 sx={{ textTransform: "none" }}
               >
-                {alignment === "new" ? <p>Post</p> : <p>Update</p>}
+                {alignment === "new" && <p>Post</p>}
+                {alignment === "update" && <p>Update</p>}
+                {alignment === "delete" && <p>Delete</p>}
               </Button>
             )}
           </Stack>
