@@ -1,4 +1,9 @@
 import SaveContentContainer from "@/components/SaveContent/SaveContentContainer";
+import { Metadata } from "next";
+export const metadata: Metadata = {
+  title: "VanillaJS-CodeStore | Post-Content",
+  description: "VanillaJS-CodeStore | Add/Update/Delete Content",
+};
 export default async function PostContent() {
   let items = [];
   const getList = async () => {

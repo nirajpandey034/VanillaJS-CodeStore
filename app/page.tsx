@@ -1,4 +1,9 @@
 import DashboardContainer from "@/components/Dashboard/DashboardContainer";
+import { Metadata } from "next";
+export const metadata: Metadata = {
+  title: "VanillaJS-CodeStore | Home",
+  description: "VanillaJS-CodeStore | Code Dashboard",
+};
 
 export default async function Home() {
   let items = [];
