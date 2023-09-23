@@ -1,1 +1,1 @@
-[CodeStore](https://vanillajs-codestore.vercel.app/)
+Visit: [CodeStore](https://vanillajs-codestore.vercel.app/)
