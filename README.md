@@ -1,1 +1,1 @@
-[Live](https://vanillajs-codestore.vercel.app/)
+[CodeStore](https://vanillajs-codestore.vercel.app/)
